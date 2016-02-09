@@ -3,6 +3,26 @@
 @import "neat/neat";
 @import "nav";
 
+$development-dark-grey:  #474747;
+$development-med-grey:   #7d7a7a;
+$development-light-grey: #acacac;
+
 body, html {
   margin: 0;
+  background-color: $development-light-grey;
+  font-family: "Helvetica Neue";
+}
+
+.content-wrapper {
+  @include outer-container;
+
+  #gh-user, #gh-stats, #visualized {
+    @include span-columns(12);
+    margin: 20px 0;
+    background-color: $development-med-grey;
+
+    h2 {
+      text-align: center;
+    }
+  }
 }

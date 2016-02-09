@@ -30,11 +30,21 @@ header.navigation {
 
   .nav-right {
     float: right;
-    height: $navigation-height;
-    padding: $navigation-padding;
 
     li {
-      font-size: 0.8em;
+      height: $navigation-height;
+      padding: $navigation-padding;
+      font-size: 18px;
+      font-weight: 700;
+      float: right;
+
+      a:link, a:visited {
+        color: white;
+      }
+
+      a:hover {
+        color: orange;
+      }
     }
   }
 }
