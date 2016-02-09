@@ -1,7 +1,8 @@
 @import "bourbon/bourbon";
 @import "base/base";
 @import "neat/neat";
+@import "nav";
 
-h1 {
-  color: red;
+body, html {
+  margin: 0;
 }

@@ -11,6 +11,5 @@ get '/css/:name.css' do |name|
 end
 
 get "/" do
-  # "Hello, World!"
   erb :index
 end
