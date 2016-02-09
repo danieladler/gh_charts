@@ -2,6 +2,7 @@ header.navigation {
   $navigation-background: #474747;
   $navigation-height: 60px;
   $navigation-padding: 1em;
+  $large-screen: em(860) !default;
 
   background-color: $navigation-background;
   min-height: 60px;
@@ -24,6 +25,16 @@ header.navigation {
     img {
       max-height: $navigation-height;
       padding: 0.8em 0;
+    }
+  }
+
+  .nav-right {
+    float: right;
+    height: $navigation-height;
+    padding: $navigation-padding;
+
+    li {
+      font-size: 0.8em;
     }
   }
 }
