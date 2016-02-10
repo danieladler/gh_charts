@@ -1,8 +1,7 @@
 <div class="content-wrapper">
-
-  <div id="gh-user">
-    <h2>GH user details</h2>
-    <% if current_user  %>
+  <% if current_user  %>
+    <div id="gh-user">
+      <h2>GH user details</h2>
       <div class="gh-detail">
         <%= link_to(current_user.username,"http://github.com/#{current_user.username}") %>
       </div>
@@ -12,18 +11,24 @@
       <div class="gh-detail">
         <%= client.user.location %>
       </div>
-    <% else %>
-      <div class="gh-detail-no-user">
-        <span>Sign in above to see user details from Github</span>
-      </div>
-    <% end %>
-  </div>
+    </div>
 
-  <div id="gh-stats">
-    <h2>Github stat dashboard here</h2>
-  </div>
+    <div id="gh-stats">
+      <h2>Github stat dashboard</h2>
+      <ul>
+        <li></li>
+      </ul>
+    </div>
 
-  <div id="visualized">
-    <h2>Charts here</h2>
-  </div>
+    <div id="visualized">
+      <h2>Charts here</h2>
+    </div>
+
+  <% else %>
+
+    <div id="no-user-alert">
+      <h1>Sign in above to see user details from Github</h1>
+    </div>
+
+  <% end %>
 </div>

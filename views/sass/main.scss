@@ -35,11 +35,16 @@ body, html {
         height: 100px;
       }
     }
-
-    .gh-detail-no-user {
-      text-align: center;
-    }
   }
 
-
+  #no-user-alert {
+    @include span-columns(12);
+    margin: 60px 0;
+    text-align: center;
+    h1 {
+      font-size: 50px;
+      font-weight: bold;
+      color: rgb(213, 128, 0);
+    }
+  }
 }
