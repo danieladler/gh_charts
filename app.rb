@@ -2,6 +2,7 @@ require 'dotenv'
 require 'better_errors'
 require 'sinatra/activerecord'
 require './config/environments'
+require './models/user'
 
 Dotenv.load
 Bundler.require
