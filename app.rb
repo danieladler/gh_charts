@@ -4,6 +4,7 @@ require 'better_errors'
 require 'sinatra/activerecord'
 require './config/environments'
 require './models/user'
+require 'octokit'
 
 Dotenv.load
 Bundler.require
@@ -55,6 +56,10 @@ end
 helpers do
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def client
+    @client ||= Octokit::Client.new(:access_token => current_user.token) if @current_user
   end
 
   def link_to(text,url)
