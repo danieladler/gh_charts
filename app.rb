@@ -1,3 +1,4 @@
+# requirements & configurations
 require 'dotenv'
 require 'better_errors'
 require 'sinatra/activerecord'
@@ -18,20 +19,16 @@ configure do
   set :session_secret, ENV["SESSION_SECRET"]
 end
 
-use OmniAuth::Builder do
-  provider :github, ENV["GITHUB_TOKEN"], ENV["GITHUB_SECRET"]
-end
-
 get '/css/:name.css' do |name|
   content_type :css
   scss "sass/#{name}".to_sym, :layout => false
 end
 
-get "/" do
-  erb :index
-end
-
 # OAuth for Github
+
+use OmniAuth::Builder do
+  provider :github, ENV["GITHUB_TOKEN"], ENV["GITHUB_SECRET"]
+end
 
 get "/sign-in" do
   redirect "auth/github"
@@ -51,4 +48,18 @@ get "/auth/github/callback" do
   @user.save
   session[:user_id] = @user.id
   redirect "/"
+end
+
+# Sessions
+
+helpers do
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+end
+
+# Views
+
+get "/" do
+  erb :index
 end

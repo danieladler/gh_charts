@@ -4,8 +4,13 @@
       <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png" alt="Logo Image">
     </a>
     <ul class="nav-right">
-      <li class="nav-link"><a href="/sign-in">Sign in with Github</a></li>
-      <li class="nav-link"><a href="javascript:void(0)">About</a></li>
+      <% if current_user %>
+        <li class="nav-link"><a href="javascript:void(0)">Sign Out</a></li>
+        <li class="nav-link"><a href="javascript:void(0)">Hello, <%= @current_user.username %></a></li>
+      <% else %>
+        <li class="nav-link"><a href="/sign-in">Sign in with Github</a></li>
+      <% end %>
+        <li class="nav-link"><a href="javascript:void(0)">About</a></li>
     </ul>
   </div>
 </header>
