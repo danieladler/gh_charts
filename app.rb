@@ -39,6 +39,16 @@ end
 
 get "/auth/github/callback" do
   oauth_attrs       = request.env['omniauth.auth']
-  raise
+  @user = User.find_by(uid: oauth_attrs.uid)
+  if @user.nil?
+    @user = User.new
+  end
+  @user.uid         = oauth_attrs.uid
+  @user.username    = oauth_attrs.info.nickname
+  @user.email       = oauth_attrs.info.email
+  @user.avatar_url  = oauth_attrs.info.image
+  @user.token       = oauth_attrs.credentials.token
+  @user.save
+  session[:user_id] = @user.id
   redirect "/"
 end
