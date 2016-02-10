@@ -9,5 +9,5 @@ TODO
 ----
 - ~~Set up Bourbon & SASS~~
 - ~~Set up ActiveRecord~~
-- Set up sessions
+- ~~Set up sessions~~
 - Set up static assets (JS, CSS & Images)

@@ -58,6 +58,11 @@ helpers do
   end
 end
 
+get "/sign-out" do
+  session.clear
+  redirect "/"
+end
+
 # Views
 
 get "/" do
