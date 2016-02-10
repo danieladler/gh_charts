@@ -16,9 +16,15 @@
     <div id="gh-stats-container">
       <h2>Github stat dashboard</h2>
       <ul id="gh-stats">
-        <li class="gh-stat"> Followers: <%= client.user.followers %> </li>
-        <li class="gh-stat"> Following: <%= client.user.following %> </li>
-        <li class="gh-stat"> Public Repos: <%= client.user.public_repos %> </li>
+        <li class="gh-stat"> Followers:    <%= client.user.followers %> </li>
+        <li class="gh-stat"> Following:    <%= client.user.following %> </li>
+
+        <li class="gh-stat"> Total  Repos:  <%= (@pub_rep_count + @priv_rep_count)%> </li>
+        <li class="gh-stat"> Public Repos:  <%= @pub_rep_count %>   </li>
+        <li class="gh-stat"> Private Repos: <%= @priv_rep_count %>  </li>
+        <li class="gh-stat"> Others' Repos: <%= @other_rep_count %> </li>
+
+        <li class="gh-stat"> Total Gists: <%= client.gists.count %> </li>
       </ul>
     </div>
 

@@ -59,7 +59,22 @@ helpers do
   end
 
   def client
-    @client ||= Octokit::Client.new(:access_token => current_user.token) if @current_user
+    @client ||= Octokit::Client.new(:access_token => current_user.token) if current_user
+  end
+
+  def repo_type_count
+    @priv_rep_count = 0
+    @pub_rep_count = 0
+    @other_rep_count = 0
+    client.repositories.each do |r|
+      if r[:private] == true
+        @priv_rep_count += 1
+      elsif r[:private] == false && r[:owner][:login] == current_user.username
+        @pub_rep_count += 1
+      elsif r[:owner][:login] != current_user.username
+        @other_rep_count += 1
+      end
+    end
   end
 
   def link_to(text,url)
@@ -83,5 +98,6 @@ end
 # Views
 
 get "/" do
+  repo_type_count
   erb :index
 end
