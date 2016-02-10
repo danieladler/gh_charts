@@ -25,4 +25,17 @@ body, html {
       text-align: center;
     }
   }
+
+  #gh-user {
+    .gh-detail {
+      @include span-columns(4 of 12);
+      padding: 10px;
+
+      img {
+        height: 100px;
+      }
+    }
+  }
+
+
 }

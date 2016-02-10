@@ -56,6 +56,18 @@ helpers do
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
+  def link_to(text,url)
+    "<a href=#{url}>#{text}</a>"
+  end
+
+  def asset_img(name)
+    "<img src='images#{name}' alt='#{name}' />"
+  end
+
+  def web_img(url)
+    "<img src='#{url}'/>"
+  end
 end
 
 get "/sign-out" do
