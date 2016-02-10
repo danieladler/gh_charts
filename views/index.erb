@@ -13,10 +13,12 @@
       </div>
     </div>
 
-    <div id="gh-stats">
+    <div id="gh-stats-container">
       <h2>Github stat dashboard</h2>
-      <ul>
-        <li></li>
+      <ul id="gh-stats">
+        <li class="gh-stat"> Followers: <%= client.user.followers %> </li>
+        <li class="gh-stat"> Following: <%= client.user.following %> </li>
+        <li class="gh-stat"> Public Repos: <%= client.user.public_repos %> </li>
       </ul>
     </div>
 

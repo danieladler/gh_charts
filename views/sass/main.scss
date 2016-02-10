@@ -16,13 +16,14 @@ body, html {
 .content-wrapper {
   @include outer-container;
 
-  #gh-user, #gh-stats, #visualized {
+  #gh-user, #gh-stats-container, #visualized {
     @include span-columns(12);
     margin: 20px 0;
     background-color: $development-med-grey;
 
     h2 {
       text-align: center;
+      font-size: 24px;
     }
   }
 
@@ -34,6 +35,13 @@ body, html {
       img {
         height: 100px;
       }
+    }
+  }
+
+  #gh-stats {
+    li {
+      @include span-columns(2);
+      @include omega(6n);
     }
   }
 
