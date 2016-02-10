@@ -1,7 +1,15 @@
 require 'dotenv'
+require 'better_errors'
+require 'sinatra/activerecord'
+require './config/environments'
 
 Dotenv.load
 Bundler.require
+
+configure :development do
+  use BetterErrors::Middleware
+  BetterErrors.application_root = __dir__
+end
 
 configure do
   set :scss, {:style => :compressed, :debug_info => false}
@@ -24,8 +32,12 @@ end
 
 # OAuth for Github
 
-get "/auth/github" do
+get "/sign-in" do
+  redirect "auth/github"
 end
 
 get "/auth/github/callback" do
+  oauth_attrs       = request.env['omniauth.auth']
+  raise
+  redirect "/"
 end
