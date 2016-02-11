@@ -16,7 +16,7 @@ body, html {
 .content-wrapper {
   @include outer-container;
 
-  #gh-user, #gh-stats-container, #visualized {
+  #gh-user, .gh-stats-container, #visualized {
     @include span-columns(12);
     margin: 20px 0;
     background-color: $development-med-grey;
@@ -38,12 +38,20 @@ body, html {
     }
   }
 
-  #gh-stats {
+  .gh-stats-list {
     li {
       @include span-columns(2);
       @include omega(6n);
     }
   }
+
+  .last-ten-list {
+    li {
+      @include span-columns(2.4);
+      @include omega(5n);
+    }
+  }
+
 
   #no-user-alert {
     @include span-columns(12);

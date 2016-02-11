@@ -13,13 +13,13 @@
       </div>
     </div>
 
-    <div id="gh-stats-container">
+    <div class="gh-stats-container">
       <h2>Github stat dashboard</h2>
-      <ul id="gh-stats">
+      <ul class="gh-stats-list">
         <li class="gh-stat"> Followers:    <%= client.user.followers %> </li>
         <li class="gh-stat"> Following:    <%= client.user.following %> </li>
 
-        <li class="gh-stat"> Total  Repos:  <%= (@pub_rep_count + @priv_rep_count)%> </li>
+        <li class="gh-stat"> Total Repos:  <%= (@pub_rep_count + @priv_rep_count)%> </li>
         <li class="gh-stat"> Public Repos:  <%= @pub_rep_count %>   </li>
         <li class="gh-stat"> Private Repos: <%= @priv_rep_count %>  </li>
         <li class="gh-stat"> Others' Repos: <%= @other_rep_count %> </li>
@@ -28,6 +28,15 @@
       </ul>
     </div>
 
+    <div class="gh-stats-container">
+      <h2>10 Most Recently Updated Repos:</h2>
+      <ul class="last-ten-list">
+        <% last_ten_repos.map do |r| %>
+          <li> <%= link_to(r[:name],r[:html_url]) %></li>
+        <% end %>
+      </ul>
+    </div>
+    
     <div id="visualized">
       <h2>Charts here</h2>
     </div>
