@@ -38,14 +38,14 @@
     </div>
 
     <div class="gh-stats-container">
-      <h2>10 Most Recent Gists:</h2>
+      <h2>Five Most Recent Gists:</h2>
       <ul class="last-ten-list">
         <% if all_client_gists.count == 0 %>
           <div class="warning">
             This user has not published any Gists
           </div>
         <% else %>
-          <% last_ten_gists.map do |g| %>
+          <% last_five_gists.map do |g| %>
             <li> <%= link_to("gist name",g[:html_url]) %></li>
           <% end %>
         <% end %>

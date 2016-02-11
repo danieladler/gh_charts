@@ -93,9 +93,9 @@ helpers do
     @all_gists ||= Octokit.gists(current_user.username)
   end
 
-  def last_ten_gists
+  def last_five_gists
     sorted   = all_client_gists.sort_by {|g| g[:updated_at]}
-    just_ten = sorted[0..9]
+    just_ten = sorted[0..4]
   end
 
   # helpers for parsing HTMl
