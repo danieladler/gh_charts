@@ -9,29 +9,29 @@
         <%= web_img(current_user.avatar_url) %>
       </div>
       <div class="gh-detail">
-        <%= client.user.location %>
+        <%= current_user.github_user.location %>
       </div>
     </div>
 
     <div class="gh-stats-container">
       <h2>Github stat dashboard</h2>
       <ul class="gh-stats-list">
-        <li class="gh-stat"> Followers:    <%= client.user.followers %> </li>
-        <li class="gh-stat"> Following:    <%= client.user.following %> </li>
+        <li class="gh-stat"> Followers:    <%= current_user.github_user.followers %> </li>
+        <li class="gh-stat"> Following:    <%= current_user.github_user.following %> </li>
 
-        <li class="gh-stat"> Total Repos:  <%= (@pub_rep_count + @priv_rep_count)%> </li>
-        <li class="gh-stat"> Public Repos:  <%= @pub_rep_count %>   </li>
-        <li class="gh-stat"> Private Repos: <%= @priv_rep_count %>  </li>
-        <li class="gh-stat"> Others' Repos: <%= @other_rep_count %> </li>
+        <!-- <li class="gh-stat"> Total Repos:  <%#= (@pub_rep_count + @priv_rep_count)%> </li> -->
+        <!-- <li class="gh-stat"> Public Repos:  <%= @pub_rep_count %>   </li> -->
+        <li class="gh-stat"> Private Repos: <%= current_user.github_user.private_repo_count %>  </li>
+        <!-- <li class="gh-stat"> Others' Repos: <%= @other_rep_count %> </li> -->
 
-        <li class="gh-stat"> Total Gists: <%= client.gists.count %> </li>
+        <li class="gh-stat"> Total Gists: <%= current_user.github_user.public_gists %> </li>
       </ul>
     </div>
 
     <div class="gh-stats-container">
       <h2>10 Most Recently Updated Repos:</h2>
       <ul class="last-ten-list">
-        <% last_ten_repos.map do |r| %>
+        <% current_user.last_ten_repos.map do |r| %>
           <li> <%= link_to(r[:name],r[:html_url]) %></li>
         <% end %>
       </ul>
@@ -40,12 +40,12 @@
     <div class="gh-stats-container">
       <h2>Five Most Recent Gists:</h2>
       <ul class="last-ten-list">
-        <% if all_client_gists.count == 0 %>
+        <% if current_user.all_gists.count == 0 %>
           <div class="warning">
             This user has not published any Gists
           </div>
         <% else %>
-          <% last_five_gists.map do |g| %>
+          <% current_user.last_five_gists.map do |g| %>
             <li> <%= link_to("gist name",g[:html_url]) %></li>
           <% end %>
         <% end %>
