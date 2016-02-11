@@ -19,10 +19,10 @@
         <li class="gh-stat"> Followers:    <%= current_user.github_user.followers %> </li>
         <li class="gh-stat"> Following:    <%= current_user.github_user.following %> </li>
 
-        <!-- <li class="gh-stat"> Total Repos:  <%#= (@pub_rep_count + @priv_rep_count)%> </li> -->
-        <!-- <li class="gh-stat"> Public Repos:  <%= @pub_rep_count %>   </li> -->
-        <li class="gh-stat"> Private Repos: <%= current_user.github_user.private_repo_count %>  </li>
-        <!-- <li class="gh-stat"> Others' Repos: <%= @other_rep_count %> </li> -->
+        <li class="gh-stat"> Public Repos:  <%= current_user.public_repo_count %>   </li>
+        <li class="gh-stat"> Private Repos: <%= current_user.private_repo_count %>  </li>
+        <li class="gh-stat"> Others' Repos Joined: <%= current_user.joined_repo_count %> </li>
+        <li class="gh-stat"> Total Repos:  <%= (current_user.public_repo_count + current_user.private_repo_count + current_user.joined_repo_count)%> </li>
 
         <li class="gh-stat"> Total Gists: <%= current_user.github_user.public_gists %> </li>
       </ul>

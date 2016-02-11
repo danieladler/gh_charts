@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   # methods for sorting repo objects returned by Octokit
+  # in view, methods called on:
+    # current_user are custom-built here
+    # current_user.github user are natively available from 'client.user' object from Octokit
 
   def client # client makes requests to github API
     @client ||= Octokit::Client.new(:access_token => self.token)
@@ -10,41 +13,32 @@ class User < ActiveRecord::Base
   end
 
   def all_client_repos
-    @all_client_repos ||= client.repositories #if client
+    @all_client_repos ||= client.repositories
   end
 
   def private_repo_count
-    @priv_rep_count = 0
+    priv_rep_count = 0
     all_client_repos.each do |r|
-      if r[:private] == true
-        @priv_rep_count += 1
-      end
+      priv_rep_count += 1 if r[:private] == true
     end
-    @priv_rep_count
+    priv_rep_count
   end
 
-  # def public_repos
-  #
-  # end
-  #
-  # def joined_repos
-  #
-  # end
+  def public_repo_count
+    pub_rep_count = 0
+    all_client_repos.each do |r|
+      pub_rep_count +=1 if r[:private] == false && r[:owner][:login] == self.username
+    end
+    pub_rep_count
+  end
 
-  # def repo_type_count
-  #   @priv_rep_count = 0
-  #   @pub_rep_count = 0
-  #   @other_rep_count = 0
-  #   all_client_repos.each do |r|
-  #     if r[:private] == true
-  #       @priv_rep_count += 1
-  #     elsif r[:private] == false && r[:owner][:login] == current_user.username
-  #       @pub_rep_count += 1
-  #     elsif r[:owner][:login] != current_user.username
-  #       @other_rep_count += 1
-  #     end
-  #   end
-  # end
+  def joined_repo_count
+    join_rep_count = 0
+    all_client_repos.each do |r|
+      join_rep_count += 1 if r[:owner][:login] != self.username
+    end
+    join_rep_count
+  end
 
   def last_ten_repos
     sorted   = all_client_repos.sort_by {|r| r[:updated_at]}
