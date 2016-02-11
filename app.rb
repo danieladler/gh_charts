@@ -89,6 +89,15 @@ helpers do
     just_ten = sorted[0..9]
   end
 
+  def all_client_gists
+    @all_gists ||= Octokit.gists(current_user.username)
+  end
+
+  def last_ten_gists
+    sorted   = all_client_gists.sort_by {|g| g[:updated_at]}
+    just_ten = sorted[0..9]
+  end
+
   # helpers for parsing HTMl
 
   def link_to(text,url)
