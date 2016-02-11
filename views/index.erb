@@ -1,14 +1,66 @@
 <div class="content-wrapper">
+  <% if current_user  %>
+    <div id="gh-user">
+      <h2>GH user details</h2>
+      <div class="gh-detail">
+        <%= link_to(current_user.username,"http://github.com/#{current_user.username}") %>
+      </div>
+      <div class="gh-detail">
+        <%= web_img(current_user.avatar_url) %>
+      </div>
+      <div class="gh-detail">
+        <%= client.user.location %>
+      </div>
+    </div>
 
-  <div id="gh-user">
-    <h2>Github user digest here</h2>
-  </div>
+    <div class="gh-stats-container">
+      <h2>Github stat dashboard</h2>
+      <ul class="gh-stats-list">
+        <li class="gh-stat"> Followers:    <%= client.user.followers %> </li>
+        <li class="gh-stat"> Following:    <%= client.user.following %> </li>
 
-  <div id="gh-stats">
-    <h2>Github stat dashboard here</h2>
-  </div>
+        <li class="gh-stat"> Total Repos:  <%= (@pub_rep_count + @priv_rep_count)%> </li>
+        <li class="gh-stat"> Public Repos:  <%= @pub_rep_count %>   </li>
+        <li class="gh-stat"> Private Repos: <%= @priv_rep_count %>  </li>
+        <li class="gh-stat"> Others' Repos: <%= @other_rep_count %> </li>
 
-  <div id="visualized">
-    <h2>Charts here</h2>
-  </div>
+        <li class="gh-stat"> Total Gists: <%= client.gists.count %> </li>
+      </ul>
+    </div>
+
+    <div class="gh-stats-container">
+      <h2>10 Most Recently Updated Repos:</h2>
+      <ul class="last-ten-list">
+        <% last_ten_repos.map do |r| %>
+          <li> <%= link_to(r[:name],r[:html_url]) %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="gh-stats-container">
+      <h2>Five Most Recent Gists:</h2>
+      <ul class="last-ten-list">
+        <% if all_client_gists.count == 0 %>
+          <div class="warning">
+            This user has not published any Gists
+          </div>
+        <% else %>
+          <% last_five_gists.map do |g| %>
+            <li> <%= link_to("gist name",g[:html_url]) %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="visualized">
+      <h2>Charts here</h2>
+    </div>
+
+  <% else %>
+
+    <div id="no-user-alert">
+      <h1>Sign in above to see user details from Github</h1>
+    </div>
+
+  <% end %>
 </div>
