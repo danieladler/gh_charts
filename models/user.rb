@@ -1,2 +1,57 @@
 class User < ActiveRecord::Base
+  # methods for sorting repo objects returned by Octokit
+  # in view, methods called on:
+    # current_user are custom-built here
+    # current_user.github user are natively available from 'client.user' object from Octokit
+
+  def client # client makes requests to github API
+    @client ||= Octokit::Client.new(:access_token => self.token)
+  end
+
+  def github_user # current user's github user
+    @github_user ||= client.user
+  end
+
+  def all_client_repos
+    @all_client_repos ||= client.repositories
+  end
+
+  def private_repo_count
+    priv_rep_count = 0
+    all_client_repos.each do |r|
+      priv_rep_count += 1 if r[:private] == true
+    end
+    priv_rep_count
+  end
+
+  def public_repo_count
+    pub_rep_count = 0
+    all_client_repos.each do |r|
+      pub_rep_count +=1 if r[:private] == false && r[:owner][:login] == self.username
+    end
+    pub_rep_count
+  end
+
+  def joined_repo_count
+    join_rep_count = 0
+    all_client_repos.each do |r|
+      join_rep_count += 1 if r[:owner][:login] != self.username
+    end
+    join_rep_count
+  end
+
+  def last_ten_repos
+    sorted   = all_client_repos.sort_by {|r| r[:updated_at]}
+    just_ten = sorted[0..9]
+  end
+
+  def all_gists
+    @all_gists ||= Octokit.gists(self.username)
+  end
+
+  def last_five_gists
+    sorted   = self.all_gists.sort_by {|g| g[:updated_at]}
+    just_ten = sorted[0..4]
+  end
+
 end
