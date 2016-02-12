@@ -72,8 +72,13 @@ class User < ActiveRecord::Base
       self.client.user_events("#{self.github_user.login}", {:per_page => 100, :page => 3})
     )
 
-    # @event_arr ||= @raw_event_data.map {|e| e[:type]}
-    #   @event_arr.reduce do |e|
+    @event_arr ||= @raw_event_data.map {|e| e[:type]}
+    arr_hash = {}
+    @event_arr.each do |e|
+      arr_hash[e] ||= 0
+      arr_hash[e] +=  1
+    end
+    arr_hash
   end
 
 end

@@ -91,5 +91,4 @@ end
 get "/gh-data/events" do
   content_type :json
   current_user.last_300_events.to_json
-  # raise
 end
