@@ -60,6 +60,15 @@ body, html {
     }
   }
 
+  #visualized {
+    @include outer-container;
+
+    .chart-container {
+      @include shift(2);
+      @include span-columns(8);
+    }
+  }
+
 
   #no-user-alert {
     @include span-columns(12);
