@@ -83,8 +83,7 @@ get "/" do
   erb :index
 end
 
-get "/gh-data" do
+get "/gh-data/languages" do
   content_type :json
-  [{flavor: "Cherry", votes: rand(100)},
-   {flavor: "Apple", votes: rand(100)}].to_json
+  current_user.repo_language_types.to_json
 end

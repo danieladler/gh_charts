@@ -1,21 +1,22 @@
 $(document).ready(function() {
-  $.get("/gh-data", function(response) {
-      console.log(response);
-      var pieData = response.map(function(pie) {
-        // for each thing in this loop it's going to push into new array
-        return {name: pie.flavor, y: pie.votes}
-      });
+  $.get("/gh-data/languages", function(response) {
+      var langData = []
+      for (key in response) {
+        // for each thing in this loop it's going to push into
+        // new array in format that Highcharts can read.
+        langData.push({name: key, y: response[key]})
+      };
 
       $("#chart-container").highcharts({
       title: {
-        text: "Top Pies, Feb 2016"
+        text: "Languages"
       },
       chart: {
         type: "pie"
       },
       series: [{
-        name: "Sales: Sweet",
-        data: pieData
+        name: "Languages",
+        data: langData
       },
       ]
     });

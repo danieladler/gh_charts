@@ -45,6 +45,17 @@ class User < ActiveRecord::Base
     just_ten = sorted[0..9]
   end
 
+  def repo_language_types
+    @lang_arr ||= all_client_repos.map {|r| r[:language] }
+    lang_hash = {}
+    @lang_arr.each do |l|
+      l = "Other" if l == nil
+      lang_hash[l] ||= 0
+      lang_hash[l] += 1
+    end
+    lang_hash
+  end
+
   def all_gists
     @all_gists ||= Octokit.gists(self.username)
   end
