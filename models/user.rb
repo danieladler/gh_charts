@@ -54,4 +54,31 @@ class User < ActiveRecord::Base
     just_ten = sorted[0..4]
   end
 
+  def repo_language_types
+    @lang_arr ||= all_client_repos.map {|r| r[:language]}
+    lang_hash = {}
+    @lang_arr.each do |l|
+      l = "Other" if l == nil
+      lang_hash[l] ||= 0
+      lang_hash[l] += 1
+    end
+    lang_hash
+  end
+
+  def last_300_events
+    @raw_event_data ||= self.client.user_events("#{self.github_user.login}", {:per_page => 100, :page => 1}).concat(
+      self.client.user_events("#{self.github_user.login}", {:per_page => 100, :page => 2}),
+    ).concat(
+      self.client.user_events("#{self.github_user.login}", {:per_page => 100, :page => 3})
+    )
+
+    @event_arr ||= @raw_event_data.map {|e| e[:type]}
+    arr_hash = {}
+    @event_arr.each do |e|
+      arr_hash[e] ||= 0
+      arr_hash[e] +=  1
+    end
+    arr_hash
+  end
+
 end

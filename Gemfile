@@ -15,6 +15,9 @@ gem 'pg'
 # github API interaction
 gem 'octokit', "~> 4.0"
 
+# JSON interaction
+gem 'json'
+
 # style
 gem 'sass', '>=3.3.0'
 gem 'bourbon'

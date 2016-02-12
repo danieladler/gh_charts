@@ -99,6 +99,7 @@ DEPENDENCIES
   bourbon
   bundler
   dotenv
+  json
   neat
   octokit (~> 4.0)
   omniauth

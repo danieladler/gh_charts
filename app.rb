@@ -5,6 +5,7 @@ require 'sinatra/activerecord'
 require './config/environments'
 require './models/user'
 require 'octokit'
+require 'json'
 
 Dotenv.load
 Bundler.require
@@ -79,6 +80,15 @@ end
 # Views
 
 get "/" do
-  # repo_type_count if current_user
   erb :index
+end
+
+get "/gh-data/languages" do
+  content_type :json
+  current_user.repo_language_types.to_json
+end
+
+get "/gh-data/events" do
+  content_type :json
+  current_user.last_300_events.to_json
 end
