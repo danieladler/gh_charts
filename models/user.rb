@@ -45,8 +45,17 @@ class User < ActiveRecord::Base
     just_ten = sorted[0..9]
   end
 
+  def all_gists
+    @all_gists ||= Octokit.gists(self.username)
+  end
+
+  def last_five_gists
+    sorted   = self.all_gists.sort_by {|g| g[:updated_at]}
+    just_ten = sorted[0..4]
+  end
+
   def repo_language_types
-    @lang_arr ||= all_client_repos.map {|r| r[:language] }
+    @lang_arr ||= all_client_repos.map {|r| r[:language]}
     lang_hash = {}
     @lang_arr.each do |l|
       l = "Other" if l == nil
@@ -56,13 +65,15 @@ class User < ActiveRecord::Base
     lang_hash
   end
 
-  def all_gists
-    @all_gists ||= Octokit.gists(self.username)
-  end
+  def last_300_events
+    @raw_event_data ||= self.client.user_events("#{self.github_user.login}", {:per_page => 100, :page => 1}).concat(
+      self.client.user_events("#{self.github_user.login}", {:per_page => 100, :page => 2}),
+    ).concat(
+      self.client.user_events("#{self.github_user.login}", {:per_page => 100, :page => 3})
+    )
 
-  def last_five_gists
-    sorted   = self.all_gists.sort_by {|g| g[:updated_at]}
-    just_ten = sorted[0..4]
+    # @event_arr ||= @raw_event_data.map {|e| e[:type]}
+    #   @event_arr.reduce do |e|
   end
 
 end
